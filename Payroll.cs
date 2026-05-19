@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +37,7 @@ namespace Biznes_Model
                 if (task.GetActualCompletionDate() > task.GetDeadline())
                 {
                     int delayDays = (task.GetActualCompletionDate() - task.GetDeadline()).Days;
-                    calculatedPenalty = delayDays * (baseSalary * 0.01);
+                    calculatedPenalty = delayDays * (baseSalary * 0.01); 
                 }
             }
             else if (task.GetStatus() == "InProgress")
@@ -59,39 +59,10 @@ namespace Biznes_Model
             this.NetSalary = net;
             this.SetCreatedDate(DateTime.Now);
 
-            Console.WriteLine($"Hesablama: {emp.GetFullName()} ({emp.GetPosition()})");
-            Console.WriteLine($"Tapşırıq: {task.GetTitle()} -> Status: {task.GetStatus()}");
+            Console.WriteLine($"Hesablama: {emp.GetFullName()} {emp.GetPosition()}");
+            Console.WriteLine($"Tapşırıq: {task.GetTitle()}: Status: {task.GetStatus()}");
             Console.WriteLine($"Base: {baseSalary} AZN, Bonus: {bonus} AZN, Vergi: {tax} AZN, Gecikmə Cəriməsi: {calculatedPenalty} AZN");
             Console.WriteLine($"Yekun Nəticə: {net} AZN");
-        }
-    }
-    public class EmployeeTask
-    {
-        private string title;
-        private string description;
-        private DateTime deadline;
-        private DateTime actualCompletionDate;
-        private string status;
-
-        public EmployeeTask(string title, string description, DateTime deadline)
-        {
-            this.title = title;
-            this.description = description;
-            this.deadline = deadline;
-            this.status = "InProgress";
-        }
-
-        public string GetTitle() { return title; }
-        public DateTime GetDeadline() { return deadline; }
-        public string GetStatus() { return status; }
-        public DateTime GetActualCompletionDate() { return actualCompletionDate; }
-
-        public void SetStatus(string status) { this.status = status; }
-
-        public void CompleteTask(DateTime completionDate)
-        {
-            this.actualCompletionDate = completionDate;
-            this.status = "Completed";
         }
     }
 }
