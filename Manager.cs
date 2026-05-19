@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +8,23 @@ namespace Biznes_Model
 {
     public class Manager : Employee
     {
-        private int teamSize;
-        private string department;
+        private int TeamSize;
+        private string Department;
 
-        public int GetTeamSize() { return teamSize; }
-        public string GetDepartment() { return department; }
+        public int GetTeamSize() { return TeamSize; }
+        public string GetDepartment() { return Department; }
 
-        public void SetTeamSize(int size) { this.teamSize = size; }
-        public void SetDepartment(string dept) { this.department = dept; }
+        public void SetTeamSize(int size) { TeamSize = size; }
+        public void SetDepartment(string dept) { Department = dept; }
 
         public override double CalculateBonus()
         {
-            return this.teamSize * 50.0; 
+            return TeamSize * 50;
         }
+
         public override string GetInfo()
         {
-            return base.GetInfo() + $" Şöbə: {department}, Komanda Sayı: {teamSize}";
+            return base.GetInfo() + $" Departament: {Department}, Komanda Sayı: {TeamSize}";
         }
     }
 }
