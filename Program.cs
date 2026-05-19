@@ -1,65 +1,50 @@
-﻿using System;
+using Biznes_Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biznes_Model
+public class Program
 {
-    public class Program
+    public static void Main()
     {
-        static void Main(string[] args)
-        {
-            DataBase db = new DataBase();
+        DataBase db = new DataBase();
+        Developer dev = new Developer();
+        dev.SetId(1);
+        dev.SetFullName("Vəli Əliyev");
+        dev.SetPosition("Developer");
+        dev.SetBaseSalary(1500);
+        dev.AddTech("C#");
+        db.AddEmployee(dev);
 
-            Developer dev = new Developer();
-            dev.SetId(1);
-            dev.SetFullName("Vəli Əliyev");
-            dev.SetPosition("Developer");
-            dev.SetBaseSalary(1500);
-            dev.AddTech("C#");
-            dev.AddTech("Java");
-            dev.AddTech("Python");
-            db.AddEmployee(dev);
+        Manager man = new Manager();
+        man.SetId(2);
+        man.SetFullName("Leyla Həsənova");
+        man.SetPosition("Manager");
+        man.SetBaseSalary(2000);
+        man.SetTeamSize(4);
+        man.SetDepartment("IT");
+        db.AddManager(man);
 
-            Manager man = new Manager();
-            man.SetId(2);
-            man.SetFullName("Leyla Həsənova");
-            man.SetPosition("Manager");
-            man.SetBaseSalary(2000);
-            man.SetTeamSize(5);
-            man.SetDepartment("IT");
-            db.AddManager(man);
+        EmployeeTask task1 = new EmployeeTask(501, "Backend", "Baza qurulması", "10.05.2026");
+        db.CreateTask(task1);
+        db.AssignTaskToEmployee(501, 1);
 
-            EmployeeTask task1 = new EmployeeTask("Backend", "Baza qurulması", new DateTime(2026, 05, 10));
-            task1.CompleteTask(new DateTime(2026, 05, 12));
+        Console.WriteLine("Bazadakı Mövcud İşçilərin Siyahısı:");
+        db.GetAll();
 
-            Payroll p1 = new Payroll();
-            p1.SetId(101);
-            p1.SetEmployeeId(dev.GetId());
-            p1.Calculate(dev, task1);
-            db.AddPayroll(p1);
-            db.GetAll();
-            db.GetPayrollReport();
+        task1.CompleteTask("12.05.2026");
 
-            int umumiSay = db.GetEmployeeCount();
-            Console.WriteLine($"Sistemdəki ümumi işçi sayısı: {umumiSay}");
+        Payroll p1 = new Payroll();
+        p1.SetId(101);
+        p1.SetEmployeeId(dev.GetId());
+        p1.Calculate(dev, task1);
+        db.AddPayroll(p1);
+        db.RemoveTaskById(501);
+        db.RemoveEmployeeById(2); 
 
-            Console.WriteLine("ID-si 2 olan işçi axtarılır");
-            Employee tapilanIsci = db.FindEmployeeById(2);
-            if (tapilanIsci != null)
-            {
-                Console.WriteLine($"TAPILDI: {tapilanIsci.GetFullName()} -> Vəzifəsi: {tapilanIsci.GetPosition()}");
-            }
-            else
-            {
-                Console.WriteLine("XƏTA: Bu ID-də işçi tapılmadı.");
-            }
+        Console.WriteLine($"Son qalan ümumi işçi sayı: {db.GetEmployeeCount()}");
 
-            Console.WriteLine("ID-si 1 olan işçi (Vəli) sistemdən silinir");
-            db.RemoveEmployeeById(1);
-
-            Console.WriteLine($"Silinmədən sonra qalan ümumi işçi sayısı: {db.GetEmployeeCount()}");
-        }
     }
 }
