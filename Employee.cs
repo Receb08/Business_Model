@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,32 +6,40 @@ using System.Threading.Tasks;
 
 namespace Biznes_Model
 {
-    public class Employee: BaseModel
+    public class Employee : BaseModel
     {
-        private string FullName;
-        private string Position;
-        private double BaseSalary;
+        private string fullName;
+        private string position;
+        private double baseSalary;
 
-        public string GetFullName() { return FullName; }
+        private List<EmployeeTask> myTasks = new List<EmployeeTask>();
 
-        public string GetPosition() { return Position; }
+        public string GetFullName() { return fullName; }
+        public string GetPosition() { return position; }
+        public double GetBaseSalary() { return baseSalary; }
 
-        public double GetBaseSalary() { return BaseSalary; }
-        public void SetFullName(string name) { FullName = name; }
-        public void SetPosition(string pos) { Position = pos; }
-        public void SetBaseSalary(double salary) { BaseSalary = salary; }
-        public virtual string GetInfo()
+        public void SetFullName(string name) { fullName = name; }
+        public void SetPosition(string pos) { position = pos; }
+        public void SetBaseSalary(double salary) { baseSalary = salary; }
+
+        public void AddTaskToEmployee(EmployeeTask task)
         {
-            double bonus = CalculateBonus();
-            double baseSalary = GetBaseSalary();
-            double tax = (baseSalary + bonus) * 0.14;
-            double netSalary = (baseSalary + bonus) - tax; 
-            return $"Id: {GetId()}, Name: {GetFullName()}, Position: {GetPosition()}, Net Salary: {netSalary} AZN";
+            myTasks.Add(task);
+        }
+
+        public List<EmployeeTask> GetMyTasks()
+        {
+            return myTasks;
         }
 
         public virtual double CalculateBonus()
         {
-            return 0;
+            return 0.0;
+        }
+
+        public virtual string GetInfo()
+        {
+            return $"ID: {this.GetId()}, Ad: {fullName}, Vəzifə: {position}, Maaş: {baseSalary} AZN, Tapşırıq Sayı: {myTasks.Count}";
         }
     }
 }
