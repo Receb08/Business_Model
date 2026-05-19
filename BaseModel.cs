@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +8,13 @@ namespace Biznes_Model
 {
     public class BaseModel
     {
-        private int Id;
-        private DateTime CreatedDate;
+        private int id;
+        private DateTime createdDate;
 
-        public int GetId() { return Id; }
+        public int GetId() { return id; }
+        public void SetId(int newId) { id = newId; }
 
-        public DateTime GetCreatedDate() { return CreatedDate; }
-        public void SetId(int id) { Id = id; }
-        public void SetCreatedDate(DateTime date) { CreatedDate = date; }
+        public DateTime GetCreatedDate() { return createdDate; }
+        public void SetCreatedDate(DateTime date) { createdDate = date; }
     }
 }
