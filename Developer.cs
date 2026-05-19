@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +8,27 @@ namespace Biznes_Model
 {
     public class Developer : Employee
     {
-        private List<string> techStack = new List<string>();
+        private List<string> Technologies = new List<string>();
 
         public void AddTech(string tech)
         {
-            techStack.Add(tech);
+            Technologies.Add(tech);
+        }
+
+        public List<string> GetTechnologies()
+        {
+            return Technologies;
         }
 
         public override double CalculateBonus()
         {
-            return 100.0;
+            return Technologies.Count * 100;
         }
 
         public override string GetInfo()
         {
-            string languages = string.Join(", ", techStack);
-            return base.GetInfo() + $" Texnologiyalar: ({languages})";
+            string techs = string.Join(", ", Technologies);
+            return base.GetInfo() + $", Texnologiyalar: {techs}";
         }
     }
 }
